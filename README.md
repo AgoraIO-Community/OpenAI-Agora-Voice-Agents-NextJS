@@ -29,13 +29,22 @@ Create the environment file:
 cp env.local.example .env.local
 ```
 
-Add your credentials to `.env.local`:
+Install the [Agora CLI](https://github.com/AgoraIO/cli), sign in, select your Agora project, and write its App ID and App Certificate to the environment file:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/AgoraIO/cli/main/install.sh | sh -s -- --add-to-path
+agora login
+agora project use <your-project-name-or-id>
+agora project env write .env.local --template nextjs
+```
+
+The CLI configures `NEXT_PUBLIC_AGORA_APP_ID` and `NEXT_AGORA_APP_CERTIFICATE`. Add your OpenAI key to `.env.local`:
 
 ```dotenv
-NEXT_PUBLIC_AGORA_APP_ID=your_agora_app_id
-NEXT_AGORA_APP_CERTIFICATE=your_agora_app_certificate
 NEXT_OPENAI_API_KEY=your_openai_api_key
 ```
+
+If you prefer to configure the file manually, also set `NEXT_PUBLIC_AGORA_APP_ID` and `NEXT_AGORA_APP_CERTIFICATE` in `.env.local`.
 
 Start the app:
 
