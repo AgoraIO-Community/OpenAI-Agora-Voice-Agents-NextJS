@@ -31,7 +31,7 @@ The sections below (Start Here, Patterns, Anti-Patterns, etc.) remain the canoni
 - UI components: `agora-agent-uikit` for visualizer, transcript, and mic controls
 - Server SDK: `agora-agents` for managed agent session startup
 - API routes: token generation, agent invite, chat, and stop routes live in `app/api`
-- Default agent config: OpenAI GPT Live v3 MLLM (`gpt-live-1-diamond-alpha`, voice `cedar`); `.env.local` requires Agora credentials and `NEXT_OPENAI_API_KEY`
+- Default agent config: OpenAI GPT Live v3 MLLM (`gpt-live-1`, voice `cedar`); `.env.local` requires Agora credentials and `NEXT_OPENAI_API_KEY`
 
 ## Supported Modes
 

@@ -104,6 +104,6 @@ From `types/conversation.ts` (high-use):
 
 ### GPT Live v3 model contract
 
-The application sets `params.model: gpt-live-1-diamond-alpha`, `params.voice: cedar`, and `params.prompt` from `AGENT_INSTRUCTIONS`. Without an override, the prompt and greeting use the built-in Ada developer advocate persona. The SDK supplies `/v1/live/sessions` and its protocol selector default. Browser API contracts are unchanged.
+The application sets `params.model: gpt-live-1`, `params.voice: cedar`, and `params.prompt` from `AGENT_INSTRUCTIONS`. Without an override, the prompt and greeting use the built-in Ada developer advocate persona. The SDK supplies `/v1/live/sessions` and omits `params.alpha_selector` unless explicitly configured. Browser API contracts are unchanged.
 
 Optional server-only `AGENT_PRIOR_MESSAGES` supplies a JSON array of user/assistant text turns to `mllm.messages` (default `[]`). Keep `AGENT_INSTRUCTIONS` for the system prompt. See the README’s “Seed prior conversation” example. Invalid history returns 500 before agent startup.
