@@ -105,7 +105,6 @@ export async function POST(request: NextRequest) {
         apiKey: requireEnv('NEXT_OPENAI_API_KEY'),
         greeting: GREETING,
         model: "gpt-live-1-diamond-alpha",
-        alphaSelector: "quicksilver=v3",
         voice: "cedar",
         prompt: INSTRUCTIONS,
         messages: priorMessages,

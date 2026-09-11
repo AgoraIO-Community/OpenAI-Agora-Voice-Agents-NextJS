@@ -24,13 +24,12 @@ const agent = new Agent({
   apiKey: requireEnv('NEXT_OPENAI_API_KEY'),
   greeting: GREETING,
   model: "gpt-live-1-diamond-alpha",
-  alphaSelector: "quicksilver=v3",
   voice: "cedar",
   prompt: INSTRUCTIONS,
 }));
 ```
 
-`OpenAIGPTLive` emits `mllm.vendor: "openai_gpt_live"`, `wss://api.openai.com/v1/live/sessions`, `params.alpha_selector: "quicksilver=v3"`, and `greeting_message` for the opening line. The selector makes the required v3 OpenAI alpha handshake explicit. The standard client detects this provider and routes start through the preview gateway. Do not add `.withStt()`, `.withLlm()`, or `.withTts()` to this demo.
+`OpenAIGPTLive` emits `mllm.vendor: "openai_gpt_live"`, `wss://api.openai.com/v1/live/sessions`, and `greeting_message` for the opening line. The standard client detects this provider and routes start through the preview gateway. Do not add `.withStt()`, `.withLlm()`, or `.withTts()` to this demo.
 
 After `session.start()` returns an agent ID, the invite route stores that exact `AgentSession` in `lib/agent-sessions.ts`. The stop route atomically takes the retained session and calls `session.stop()`; unknown or repeated IDs return idempotent `not-found` success. This registry is process-local, so multi-process deployments need shared lifecycle state or request affinity.
 

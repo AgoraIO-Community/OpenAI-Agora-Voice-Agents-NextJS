@@ -1,6 +1,6 @@
-# Recipe card: OpenAI GPT Live with the Agora TypeScript SDK
+# Build an OpenAI GPT Live voice agent with Next.js
 
-Use this recipe when a Next.js server route should run an end-to-end GPT Live voice agent in an Agora channel.
+Use Agora's TypeScript SDK to run an OpenAI GPT Live voice agent from Next.js server routes. GPT Live handles speech input, reasoning, and speech output as one MLLM stage. The browser publishes microphone audio and displays transcripts, agent state, and latency metrics.
 
 | Item | Value |
 | --- | --- |
@@ -8,35 +8,56 @@ Use this recipe when a Next.js server route should run an end-to-end GPT Live vo
 | Provider | `openai_gpt_live` |
 | Model | `gpt-live-1-diamond-alpha` |
 | Voice | `cedar` |
+| Runtime | Next.js and TypeScript |
 | Data channel | RTM |
-| Agent pipeline | MLLM only |
 
-## Install
+## Prerequisites
+
+- Node.js 22 or newer
+- [pnpm](https://pnpm.io/installation)
+- [Agora CLI](https://github.com/AgoraIO/cli)
+- An Agora project with an App ID and App Certificate
+- An OpenAI API key with GPT Live access
+
+## Run the recipe
+
+Clone the repository, install dependencies, and create the environment file:
 
 ```bash
-pnpm add agora-agents@2.8.0
+git clone git@github.com:AgoraIO-Community/OpenAI-Agora-Voice-Agents-NextJS.git
+cd OpenAI-Agora-Voice-Agents-NextJS
+pnpm install
+cp env.local.example .env.local
 ```
 
-## Configure credentials
+Use the Agora CLI to select a project and write its credentials to `.env.local`:
+
+```bash
+agora login
+agora project use <your-project-name-or-id>
+agora project env write .env.local --template nextjs
+```
+
+Add your OpenAI key to `.env.local`:
 
 ```dotenv
-NEXT_PUBLIC_AGORA_APP_ID=your_agora_app_id
-NEXT_AGORA_APP_CERTIFICATE=your_agora_app_certificate
 NEXT_OPENAI_API_KEY=your_openai_api_key
 ```
 
-Only the App ID belongs in browser code. Read the App Certificate and OpenAI key from a server route.
+Start the app:
 
-## Create the agent
+```bash
+pnpm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000), allow microphone access, and select **Start conversation**.
+
+## Configure GPT Live
+
+The server route creates the MLLM and starts a session with the browser's channel and UID:
 
 ```typescript
-import {
-  AgoraClient,
-  Agent,
-  Area,
-  ExpiresIn,
-  OpenAIGPTLive,
-} from 'agora-agents';
+import { AgoraClient, Agent, Area, ExpiresIn, OpenAIGPTLive } from 'agora-agents';
 
 async function startAgent(channel: string, agentUid: string, userUid: string) {
   const client = new AgoraClient({
@@ -58,7 +79,6 @@ async function startAgent(channel: string, agentUid: string, userUid: string) {
     new OpenAIGPTLive({
       apiKey: process.env.NEXT_OPENAI_API_KEY!,
       model: 'gpt-live-1-diamond-alpha',
-      alphaSelector: 'quicksilver=v3',
       voice: 'cedar',
       prompt: 'You are a concise and helpful voice assistant.',
       greeting: 'Hello! How can I help?',
@@ -76,29 +96,27 @@ async function startAgent(channel: string, agentUid: string, userUid: string) {
     idleTimeout: 30,
     expiresIn: ExpiresIn.hours(1),
   });
-
   const agentId = await session.start();
   return { agentId, session };
 }
 ```
 
-Generate the RTC+RTM token before starting the session. The browser and agent must join the same channel with different UIDs. Set `remoteUids` to the browser user's UID so the agent processes that user's audio.
+The complete sample generates an RTC+RTM token before starting the agent. The browser and agent join the same channel with different UIDs, and `remoteUids` identifies the browser user whose audio the agent should process.
 
-## Parameter map
+## Customize the conversation
 
 | TypeScript option | Request field | Purpose |
 | --- | --- | --- |
 | `prompt` | `mllm.params.prompt` | Persistent system instructions |
-| `greeting` | `mllm.greeting_message` | Opening line |
+| `greeting` | `mllm.greeting_message` | Requested opening line |
 | `messages` | `mllm.messages` | Prior user and assistant turns |
 | `voice` | `mllm.params.voice` | Output voice |
-| `alphaSelector` | `mllm.params.alpha_selector` | Selects the GPT Live v3 contract |
 
-Use `messages` for prior conversation. Keep system behavior in `prompt`.
+Use `prompt` for system behavior and `messages` to continue an earlier conversation. Keep the App Certificate, OpenAI key, and conversation history in server code.
 
-## Stop the session
+## Stop the agent
 
-Retain the session object with its returned agent ID, then stop it through the same object:
+Retain the session returned by `startAgent` and stop it when the call ends:
 
 ```typescript
 await session.stop();
@@ -106,6 +124,10 @@ await session.stop();
 
 For a multi-instance deployment, store lifecycle ownership in shared state or route start and stop requests to the same instance.
 
-## Try the complete sample
+## Verify the project
 
-Return to the [project README](../../README.md) for credential setup, local run commands, browser UI, and troubleshooting.
+```bash
+pnpm run verify
+```
+
+See the [project README](../../README.md) for architecture, deployment, configuration options, and troubleshooting.
