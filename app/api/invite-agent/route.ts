@@ -104,8 +104,8 @@ export async function POST(request: NextRequest) {
       new OpenAIGPTLive({
         apiKey: requireEnv('NEXT_OPENAI_API_KEY'),
         greeting: GREETING,
-        model: "gpt-live-1-diamond-alpha",
-        voice: "cedar",
+        model: 'gpt-live-1',
+        voice: 'cedar',
         prompt: INSTRUCTIONS,
         messages: priorMessages,
       }),

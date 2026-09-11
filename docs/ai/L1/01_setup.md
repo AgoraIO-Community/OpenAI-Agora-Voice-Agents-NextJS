@@ -29,9 +29,9 @@ agora project doctor --deep
 - `NEXT_PUBLIC_AGORA_APP_ID`: Agora project App ID.
 - `NEXT_AGORA_APP_CERTIFICATE`: Agora App Certificate (server only).
 
-- `NEXT_OPENAI_API_KEY`: alpha-enabled OpenAI credential (server only).
+- `NEXT_OPENAI_API_KEY`: OpenAI credential with GPT Live access (server only).
 
-Agent behavior defaults live in code. Run `pnpm install` in the demo directory to install the published `agora-agents` v2.8.0 SDK.
+Agent behavior defaults live in code. Run `pnpm install` in the demo directory to install the published `agora-agents` v2.8.1 SDK.
 
 ## Primary Commands
 

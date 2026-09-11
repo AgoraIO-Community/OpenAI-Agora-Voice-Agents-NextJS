@@ -401,8 +401,7 @@ async function verifyInviteAgentSuccess(priorMessages?: string) {
           api_key: 'test-openai-api-key',
           url: 'wss://api.openai.com/v1/live/sessions',
           params: {
-            model: 'gpt-live-1-diamond-alpha',
-            alpha_selector: 'quicksilver=v3',
+            model: 'gpt-live-1',
             voice: 'cedar',
             prompt: ADA_INSTRUCTIONS,
           },

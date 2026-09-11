@@ -4,9 +4,9 @@ Use Agora's TypeScript SDK to run an OpenAI GPT Live voice agent from Next.js se
 
 | Item | Value |
 | --- | --- |
-| SDK | `agora-agents@2.8.0` |
+| SDK | `agora-agents@2.8.1` |
 | Provider | `openai_gpt_live` |
-| Model | `gpt-live-1-diamond-alpha` |
+| Model | `gpt-live-1` |
 | Voice | `cedar` |
 | Runtime | Next.js and TypeScript |
 | Data channel | RTM |
@@ -78,7 +78,7 @@ async function startAgent(channel: string, agentUid: string, userUid: string) {
   }).withMllm(
     new OpenAIGPTLive({
       apiKey: process.env.NEXT_OPENAI_API_KEY!,
-      model: 'gpt-live-1-diamond-alpha',
+      model: 'gpt-live-1',
       voice: 'cedar',
       prompt: 'You are a concise and helpful voice assistant.',
       greeting: 'Hello! How can I help?',

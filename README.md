@@ -2,18 +2,18 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![Node](https://img.shields.io/badge/node-%3E%3D22-brightgreen)](https://nodejs.org/)
-[![Agora Agents](https://img.shields.io/badge/agora--agents-2.8.0-099DFD)](https://www.npmjs.com/package/agora-agents/v/2.8.0)
+[![Agora Agents](https://img.shields.io/badge/agora--agents-2.8.1-099DFD)](https://www.npmjs.com/package/agora-agents/v/2.8.1)
 
 Build a browser-based voice agent with OpenAI GPT Live and the Agora Conversational AI Engine. This sample uses Next.js for both the web client and server routes. It includes microphone audio, agent playback, live transcripts, state updates, and latency metrics.
 
-The sample uses the published `agora-agents` 2.8.0 package and configures GPT Live as one end-to-end multimodal stage.
+The sample uses the published `agora-agents` 2.8.1 package and configures GPT Live as one end-to-end multimodal stage.
 
 ## Prerequisites
 
 - Node.js 22 or newer
 - [pnpm](https://pnpm.io/installation)
 - An Agora project with App ID and App Certificate
-- An OpenAI API key with access to `gpt-live-1-diamond-alpha`
+- An OpenAI API key with access to `gpt-live-1`
 
 ## Run locally
 

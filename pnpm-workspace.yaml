@@ -6,4 +6,4 @@ allowBuilds:
   sharp: true
   unrs-resolver: true
 minimumReleaseAgeExclude:
-  - agora-agents@2.8.0
+  - agora-agents@2.8.1
