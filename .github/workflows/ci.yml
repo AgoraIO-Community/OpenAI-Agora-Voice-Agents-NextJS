@@ -18,7 +18,7 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 11.8.0
 
       - uses: actions/setup-node@v4
         with:
@@ -26,11 +26,12 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Create stub .env.local for doctor
         run: |
-          printf 'NEXT_PUBLIC_AGORA_APP_ID=0123456789abcdef0123456789abcdef\nNEXT_AGORA_APP_CERTIFICATE=fedcba9876543210fedcba9876543210\n' > .env.local
+          # Structurally valid test fixtures; never use real credentials in CI.
+          printf 'NEXT_PUBLIC_AGORA_APP_ID=00000000000000000000000000000000\nNEXT_AGORA_APP_CERTIFICATE=11111111111111111111111111111111\n' > .env.local
 
       - name: Verify (lint + typecheck + api-contracts + build)
         run: pnpm run verify

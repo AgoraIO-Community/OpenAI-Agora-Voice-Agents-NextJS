@@ -17,8 +17,8 @@ function getJson(response: Response) {
   return response.json() as Promise<Record<string, unknown>>;
 }
 
-process.env.NEXT_PUBLIC_AGORA_APP_ID = '0123456789abcdef0123456789abcdef';
-process.env.NEXT_AGORA_APP_CERTIFICATE = 'fedcba9876543210fedcba9876543210';
+process.env.NEXT_PUBLIC_AGORA_APP_ID = '00000000000000000000000000000000';
+process.env.NEXT_AGORA_APP_CERTIFICATE = '11111111111111111111111111111111';
 process.env.NEXT_OPENAI_API_KEY = 'test-openai-api-key';
 
 async function verifyGenerateAgoraTokenRoute() {
